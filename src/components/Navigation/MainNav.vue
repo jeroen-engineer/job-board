@@ -26,16 +26,12 @@
           </ul>
         </nav>
         <div class="flex items-center h-full ml-auto">
-          <profile-image
-            v-if="isLoggedIn"
-            data-test="profile-image"
-            @click="handleLogIn"
-          />
+          <profile-image v-if="isLoggedIn" data-test="profile-image" />
           <action-button
             v-else
             text="Sign in"
             data-test="login-button"
-            @click="handleLogIn"
+            @click="LOGIN_USER()"
           />
         </div>
       </div>
@@ -45,9 +41,11 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import Subnav from "@/components/Navigation/Subnav.vue";
+
 export default {
   name: "MainNav",
   components: {
@@ -65,7 +63,6 @@ export default {
         { text: "Students", url: "/" },
         { text: "Jobs", url: "/jobs/results" },
       ],
-      isLoggedIn: false,
     };
   },
   computed: {
@@ -75,11 +72,10 @@ export default {
         "h-32": this.isLoggedIn,
       };
     },
+    ...mapState(["isLoggedIn"]),
   },
   methods: {
-    handleLogIn() {
-      this.isLoggedIn = !this.isLoggedIn;
-    },
+    ...mapMutations(["LOGIN_USER"]),
   },
 };
 </script>
