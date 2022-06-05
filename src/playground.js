@@ -1,34 +1,17 @@
-const fruits = ["Apple", "Banana", "Orange"];
-const vegetables = ["Cucumber", "Radish", "Carrot"];
+const number = [1, 2, 5, 7, 8, 9, 15];
 
-const fruitveggie = [...fruits, ...vegetables];
+const filteredNumbers = number.filter((number) => number > 6);
+const filteredNumbers1 = number.filter((number) => number !== 7);
 
-console.log(fruitveggie);
+console.log(number);
+console.log(filteredNumbers);
+console.log(filteredNumbers1);
 
-const developer = {
-  salary: 100000,
-  techStack: ["Vue", "CSS", "HTML"],
-  experience: 4.5,
-  lookingForWork: true,
-  doubleSalary() {
-    this.salary = this.salary * 2;
-    this.lookingForWork = false;
-  },
-};
+const jobs = [
+  { title: "jtcareers", organization: "Microsoft" },
+  { title: "programmer", organization: "Google" },
+  { title: "developer", organization: "Microsoft" },
+];
 
-console.log(developer);
-console.log(developer.salary);
-console.log(developer.lookingForWork);
-console.log(developer.techStack[1]);
-
-developer.doubleSalary();
-console.log(developer.salary);
-console.log(developer.lookingForWork);
-
-export const evenOrOdd = (number) => {
-  if (number % 2 === 0) {
-    return "even";
-  } else {
-    return "odd";
-  }
-};
+const filteredJobs = jobs.filter((job) => job.organization !== "Microsoft");
+console.log(filteredJobs);
