@@ -10,8 +10,12 @@ describe("state", () => {
     const startingState = state();
     expect(startingState.jobs).toEqual([]);
   });
-  it("stores organizations that the user would like to filters job by", () => {
+  it("stores organizations that the user would like to filter job by", () => {
     const startingState = state();
     expect(startingState.selectedOrganizations).toEqual([]);
+  });
+  it("stores job types that the user would like to filter job by", () => {
+    const startingState = state();
+    expect(startingState.selectedJobTypes).toEqual([]);
   });
 });

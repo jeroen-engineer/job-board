@@ -1,6 +1,9 @@
 <template>
   <main class="flex-auto p-8 bg-brand-gray-2">
-    <ol>
+    <div v-if="displayedJobs.length === 0">
+      <h1>No Jobs found</h1>
+    </div>
+    <ol v-else>
       <job-listing
         v-for="job in displayedJobs"
         :key="job.id"
@@ -8,6 +11,7 @@
         data-test="job-listing"
       />
     </ol>
+
     <div class="mt-8 mx-auto">
       <div class="flex flex-row flex-nowrap">
         <p class="text-sm flex-grow">Page {{ currentPage }}</p>
@@ -34,7 +38,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { FETCH_JOBS, FILTERED_JOBS_BY_ORGANIZATIONS } from "@/store/constants";
+import { FETCH_JOBS, FILTERED_JOBS } from "@/store/constants";
 import JobListing from "@/components/JobResults/JobListing.vue";
 export default {
   name: "JobListings",
@@ -43,7 +47,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([FILTERED_JOBS_BY_ORGANIZATIONS]),
+    ...mapGetters([FILTERED_JOBS]),
     currentPage() {
       const pageString = this.$route.query.page || "1";
       return Number.parseInt(pageString);
@@ -55,19 +59,14 @@ export default {
     },
     nextPage() {
       const nextPage = this.currentPage + 1;
-      const maxPage = Math.ceil(
-        this.FILTERED_JOBS_BY_ORGANIZATIONS.length / 10
-      );
+      const maxPage = Math.ceil(this.FILTERED_JOBS.length / 10);
       return nextPage <= maxPage ? nextPage : undefined;
     },
     displayedJobs() {
       const pageNumber = this.currentPage;
       const firstJobIndex = (pageNumber - 1) * 10;
       const lastJobIndex = pageNumber * 10;
-      return this.FILTERED_JOBS_BY_ORGANIZATIONS.slice(
-        firstJobIndex,
-        lastJobIndex
-      );
+      return this.FILTERED_JOBS.slice(firstJobIndex, lastJobIndex);
     },
   },
   async mounted() {
