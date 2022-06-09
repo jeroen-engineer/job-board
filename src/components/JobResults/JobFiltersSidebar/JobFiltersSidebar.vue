@@ -10,24 +10,34 @@
         </div>
       </div>
       <accordion header="Degree" />
-      <job-filters-sidebar-job-types />
-      <job-filters-sidebar-organizations />
+      <!-- <job-filters-sidebar-job-types />
+      <job-filters-sidebar-organizations /> -->
+      <job-filters-sidebar-checkbox-group
+        header="Job Types"
+        :mutation="ADD_SELECTED_JOB_TYPES"
+        :unique-values="uniqueJobTypes"
+      />
+      <job-filters-sidebar-checkbox-group
+        header="Organizations"
+        :mutation="ADD_SELECTED_ORGANIZATIONS"
+        :unique-values="uniqueOrganizations"
+      />
     </section>
   </div>
 </template>
 
-<script>
-import JobFiltersSidebarOrganizations from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarOrganizations.vue";
-import JobFiltersSidebarJobTypes from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarJobTypes.vue";
+<script setup>
+// import JobFiltersSidebarOrganizations from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarOrganizations.vue";
+// import JobFiltersSidebarJobTypes from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarJobTypes.vue";
+import JobFiltersSidebarCheckboxGroup from "@/components/JobResults/JobFiltersSidebar/JobFiltersSidebarCheckboxGroup.vue";
 import ActionButton from "@/components/Shared/ActionButton.vue";
 import Accordion from "@/components/Shared/Accordion";
-export default {
-  name: "JobfiltersSidebar",
-  components: {
-    ActionButton,
-    Accordion,
-    JobFiltersSidebarOrganizations,
-    JobFiltersSidebarJobTypes,
-  },
-};
+import { useUniqueJobTypes, useUniqueOrganizations } from "@/store/composables";
+import {
+  ADD_SELECTED_JOB_TYPES,
+  ADD_SELECTED_ORGANIZATIONS,
+} from "@/store/constants";
+
+const uniqueJobTypes = useUniqueJobTypes();
+const uniqueOrganizations = useUniqueOrganizations();
 </script>
